@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from './entity/users.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateUserDto } from './dto/CreateUser.dto';
 
 @Injectable()
 
@@ -17,14 +18,24 @@ export class UsersService {
         return this.userRepo.find()
     }
 
-    getByParam(id:number) {
-       const user =  this.userRepo.find({where:{
+    async getByParam(id:number) {
+       const user = await this.userRepo.findOne({where:{
         id:id
        }})
 
        if(!user) {
         return
        }
-        return this.userRepo
+        return user
+    
+    
+    }
+
+    createUser(dto:CreateUserDto) {
+        const newUser = this.userRepo.create(dto)
+        if(!newUser) {
+            return
+        }
+        return this.userRepo.save(newUser)
     }
 }
