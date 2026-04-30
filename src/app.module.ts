@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SpendsModule } from './spends/spends.module';
 
 @Module({
   controllers: [AppController],
@@ -15,6 +16,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     ssl:{rejectUnauthorized:false},
     synchronize:true,
     entities: [__dirname + '/**/*.entity{.ts,.js}']
-  })],
+  }), SpendsModule],
 })
 export class AppModule {}
