@@ -12,11 +12,11 @@ export class UsersController {
     }
 
     @Get(':id')
-    getById(@Param('id') id:number) {
+    async getById(@Param('id') id:number) {
       return this.usersService.getByParam(id)
     }
     @Post('create')
-    createNew(@Body() dto:CreateUserDto) {
+    async createNew(@Body() dto:CreateUserDto) {
       return this.usersService.createUser(dto)
     }
 }

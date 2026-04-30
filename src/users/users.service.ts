@@ -11,7 +11,7 @@ export class UsersService {
     @InjectRepository(User)
     private userRepo:Repository<User>
     ){}
-    getAll() {
+    async getAll() {
         if (!this.userRepo) {
             return new NotFoundException('')
         }
@@ -31,7 +31,7 @@ export class UsersService {
     
     }
 
-    createUser(dto:CreateUserDto) {
+   async createUser(dto:CreateUserDto) {
         const newUser = this.userRepo.create(dto)
         if(!newUser) {
             return new NotFoundException('cant create user')
