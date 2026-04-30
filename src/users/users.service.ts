@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './entity/users.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -13,7 +13,7 @@ export class UsersService {
     ){}
     getAll() {
         if (!this.userRepo) {
-            return 'sosal'
+            return new NotFoundException('')
         }
         return this.userRepo.find()
     }
@@ -24,7 +24,7 @@ export class UsersService {
        }})
 
        if(!user) {
-        return
+        return new NotFoundException('cant find account with this id')
        }
         return user
     
@@ -34,7 +34,7 @@ export class UsersService {
     createUser(dto:CreateUserDto) {
         const newUser = this.userRepo.create(dto)
         if(!newUser) {
-            return
+            return new NotFoundException('cant create user')
         }
         return this.userRepo.save(newUser)
     }
