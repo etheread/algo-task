@@ -11,7 +11,7 @@ export class UsersService {
     @InjectRepository(User)
     private userRepo:Repository<User>
     ){}
-    async getAll() {
+    async getAllUsers() {
         if (!this.userRepo) {
             return new NotFoundException('')
         }

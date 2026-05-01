@@ -8,7 +8,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get()
     findAll () {
-     return this.usersService.getAll()
+     return this.usersService.getAllUsers()
     }
 
     @Get(':id')
