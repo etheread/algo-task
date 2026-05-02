@@ -7,7 +7,7 @@ export class SpendsController {
   constructor(private readonly spendsService: SpendsService) {}
   @Get()
   async getAll() {
-    return this.spendsService.getAllSpend
+    return this.spendsService.getAllSpend()
   }
   @Get(':id') 
   async getOne(@Param('id') id:number) {
