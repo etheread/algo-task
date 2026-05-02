@@ -3,8 +3,7 @@ import { CreateSpendDto } from './dto/createSpend.dto';
 import { Spend } from './entity/spends.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindRelationsNotFoundError, Repository } from 'typeorm';
-import { reportUnhandledError } from 'rxjs/internal/util/reportUnhandledError';
-import { NotFoundError } from 'rxjs';
+
 
 
 @Injectable()
@@ -30,5 +29,12 @@ export class SpendsService {
         })
 
         return spend
+    }
+    async createSpend(dto:CreateSpendDto) {
+        const newSpend = this.spends.create(dto)
+        if(!newSpend) {
+            throw new NotFoundException('cant create user')
+        }
+        return this.spends.save(newSpend)
     }
 }

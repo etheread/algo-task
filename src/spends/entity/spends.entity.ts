@@ -6,7 +6,7 @@ export class Spend {
     id!:number
 
     @Column()
-    name!:string
+    spend!:string
 
     @Column()
     category!:string
