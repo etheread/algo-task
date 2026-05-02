@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSpendDto } from './dto/createSpend.dto';
 import { Spend } from './entity/spends.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindRelationsNotFoundError, Repository } from 'typeorm';
 import { reportUnhandledError } from 'rxjs/internal/util/reportUnhandledError';
+import { NotFoundError } from 'rxjs';
 
 
 @Injectable()
@@ -15,17 +16,17 @@ export class SpendsService {
     ){}
 
     async getAllSpend() {
-        if (!this.spends) {
-            throw new reportUnhandledError('we got a problem')
+        
+        if(await this.spends.count() === 0) {
+            throw new NotFoundException('no spends were found')
         }
         return this.spends.find()
     }
 
-    async findSpendId(id:string) {
-        const finalId = Number(id)
+    async findSpendId(id:number) {
 
         const spend = await this.spends.findOne({
-            where:{id:finalId}
+            where:{id:id}
         })
 
         return spend

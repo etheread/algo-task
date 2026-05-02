@@ -9,7 +9,7 @@ export class SpendsController {
     return this.spendsService.getAllSpend
   }
   @Get(':id') 
-  async getOne(@Param('id') id:string) {
+  async getOne(@Param('id') id:number) {
     return this.spendsService.findSpendId(id)
   }
 
