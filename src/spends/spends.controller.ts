@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Patch } from '@nestjs/common';
 import { SpendsService } from './spends.service';
 import { CreateSpendDto } from './dto/createSpend.dto';
 import { User } from 'src/users/entity/users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateSpendDto } from './dto/updateSpend.dto';
 
 
 @Controller('spends')
@@ -23,5 +24,8 @@ export class SpendsController {
     
     return this.spendsService.createSpend(dto,userId)
   }
-
+  @Patch('update/:id')
+  async update(@Param('id') id:number,@Body() dto:Partial<UpdateSpendDto>) {
+    return this.spendsService.updateSpend(dto,id)
+  }
 }

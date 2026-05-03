@@ -61,7 +61,14 @@ export class SpendsService {
         return this.spends.save(newSpend)
     }
 
-    async updateSpend(dto:UpdateSpendDto) {
+    async updateSpend(dto: Partial<UpdateSpendDto>,id:number) {
+        const spend = await this.findSpendId(id)
+        if(!spend) {
+            throw new NotFoundException('cant find this spend')
+        }
+        Object.assign(spend,dto)
 
+        
+        return this.spends.save(spend)
     }
 }

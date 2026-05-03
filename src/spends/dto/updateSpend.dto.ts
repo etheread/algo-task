@@ -7,9 +7,9 @@ export class UpdateSpendDto {
 
     @IsNumber()
     @IsOptional()
-    spendPrice?:number
+    price?:number
 
     @IsString()
     @IsOptional()
-    spendCategory?:string
+    category?:string
 }
