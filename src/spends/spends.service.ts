@@ -1,8 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {  Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSpendDto } from './dto/createSpend.dto';
 import { Spend } from './entity/spends.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindRelationsNotFoundError, Repository } from 'typeorm';
+import { UpdateSpendDto } from './dto/updateSpend.dto';
+import { User } from 'src/users/entity/users.entity';
 
 
 
@@ -11,8 +13,12 @@ export class SpendsService {
     constructor(
         @InjectRepository(Spend)
 
-        private spends :Repository<Spend>
+        private spends :Repository<Spend>,
+
+        @InjectRepository(User)
+        private user: Repository<User>
     ){}
+    
 
     async getAllSpend() {
         
@@ -30,11 +36,33 @@ export class SpendsService {
 
         return spend
     }
-    async createSpend(dto:CreateSpendDto) {
-        const newSpend = this.spends.create(dto)
+    async createSpend(dto:CreateSpendDto,userId:number) {
+        const lastId = await this.spends.findOne({
+            where:{},
+            order:{ id :'DESC'}
+        })
+        
+        const lastUserId = await this.user.findOne({
+            where:{id:userId},
+        })
+        if(!lastUserId) {
+            throw new NotFoundException('no user was found')
+        }
+
+        const newSpend = await this.spends.create({
+            id:Number(lastId?.id) + 1,
+            spend:dto.spend,
+            category:dto.spendCategory,
+            price:Number(dto.spendPrice),
+            userId:lastUserId.id
+        })
         if(!newSpend) {
             throw new NotFoundException('cant create user')
         }
         return this.spends.save(newSpend)
+    }
+
+    async updateSpend(dto:UpdateSpendDto) {
+
     }
 }

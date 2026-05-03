@@ -13,4 +13,7 @@ export class Spend {
 
     @Column()
     price!:number
+
+    @Column()
+    userId!:number
 }

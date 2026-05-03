@@ -12,4 +12,7 @@ export class CreateSpendDto {
 
     @IsString()
     spendPrice!:string
+
+    @IsNumber()
+    userId!:string
 }
