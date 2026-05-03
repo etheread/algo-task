@@ -71,4 +71,13 @@ export class SpendsService {
         
         return this.spends.save(spend)
     }
+    async deleteSpend(id:number) {
+        const spend = await this.spends.findOne({where:{id:id}})
+
+        if(!spend) {
+            throw new NotFoundException('no spends with that id was found')
+        }        
+
+        await this.spends.delete(spend)
+    }
 }

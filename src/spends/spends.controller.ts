@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Patch, Delete } from '@nestjs/common';
 import { SpendsService } from './spends.service';
 import { CreateSpendDto } from './dto/createSpend.dto';
 import { User } from 'src/users/entity/users.entity';
@@ -27,5 +27,9 @@ export class SpendsController {
   @Patch('update/:id')
   async update(@Param('id') id:number,@Body() dto:Partial<UpdateSpendDto>) {
     return this.spendsService.updateSpend(dto,id)
+  }
+  @Delete('delete/:id')
+  async deleteSpend(@Param('id') id:number) {
+    return this.spendsService.deleteSpend(id)
   }
 }
