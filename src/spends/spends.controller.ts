@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { SpendsService } from './spends.service';
 import { CreateSpendDto } from './dto/createSpend.dto';
 import { User } from 'src/users/entity/users.entity';
@@ -18,8 +18,8 @@ export class SpendsController {
   }
 
 
-  @Post('create,:userId')
-  async createSpend(@Body() dto:CreateSpendDto,@Param('userId') userId:number) {
+  @Post('create/:userId')
+  async createSpend(@Body() dto:CreateSpendDto,@Param('userId',ParseIntPipe) userId:number) {
     
     return this.spendsService.createSpend(dto,userId)
   }

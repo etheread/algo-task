@@ -48,12 +48,11 @@ export class SpendsService {
         if(!lastUserId) {
             throw new NotFoundException('no user was found')
         }
-
+        console.log(dto)
         const newSpend = await this.spends.create({
-            id:Number(lastId?.id) + 1,
             spend:dto.spend,
-            category:dto.spendCategory,
-            price:Number(dto.spendPrice),
+            category:dto.category,
+            price:dto.price,
             userId:lastUserId.id
         })
         if(!newSpend) {
