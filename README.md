@@ -1,5 +1,5 @@
-so i want to build a simple finance tracker api because of the task that i asked in algo class in order to learn more
+so in my algo class i asked for a task and in the result i needed to build something with django but i decided to try something new for me and i choose the next tect stack
 
-tech stack:
-backend:nest js,type orm,postgres,typescript
-frontend:vue js,typescript(i just need a simple front end)
+backend:nest js typescript postgres typeorm (btw already made the backend)
+
+frontend:vue js typescript (i have no idea how to write front end)
