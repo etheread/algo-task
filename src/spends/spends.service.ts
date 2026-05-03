@@ -20,12 +20,12 @@ export class SpendsService {
     ){}
     
 
-    async getAllSpend() {
+    async getAllSpend(userId:number) {
         
         if(await this.spends.count() === 0) {
             throw new NotFoundException('no spends were found')
         }
-        return this.spends.find()
+        return this.spends.find({where:{userId:userId}})
     }
 
     async findSpendId(id:number) {

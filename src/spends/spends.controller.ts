@@ -8,9 +8,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 @Controller('spends')
 export class SpendsController {
   constructor(private readonly spendsService: SpendsService) {}
-  @Get()
-  async getAll() {
-    return this.spendsService.getAllSpend()
+  @Get(':userId')
+  async getAll(@Param('userId') userId:number) {
+    return this.spendsService.getAllSpend(userId)
   }
   @Get(':id') 
   async getOne(@Param('id') id:number) {
